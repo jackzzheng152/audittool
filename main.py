@@ -4,7 +4,7 @@ import pandas as pd
 import statsmodels.api as sm
 import base64
 import xlsxwriter
-
+from io import BytesIO
 
 st.set_page_config(page_title="Audit Tool", page_icon = ":toolbox:", layout="wide")
 #Load Asset
@@ -81,10 +81,11 @@ with st.container():
                 if average[i] > materiality:
                     st.write(f'{df1["Month"][i]} is over the materiality limit')
         if st.button("Populate Workpapers") and uploaded_file is not None:
-            writer = pd.ExcelWriter('workpaper.xlsx', engine='xlsxwriter')
-            df1.to_excel(writer, sheet_name='Sheet1')
-            writer.save('workpaper.xlsx')
-            with open('workpaper.xlsx', 'rb') as f:
+            output = BytesIO()
+            writer = pd.ExcelWriter(output, engine='xlsxwriter')
+            df1.to_excel(writer,index=False, sheet_name='Sheet1')
+            writer.save()
+            with open(output, 'rb') as f:
                 data = f.read()
                 b64 = base64.b64encode(data).decode('UTF-8')
                 href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="workpaper.xlsx">Download Excel File</a>'
