@@ -84,7 +84,6 @@ with st.container():
             output = BytesIO()
             writer = pd.ExcelWriter(output, engine='xlsxwriter')
             df1.to_excel(writer,index=False, sheet_name='Sheet1')
-            writer.save()
             with open(output, 'rb') as f:
                 data = f.read()
                 b64 = base64.b64encode(data).decode('UTF-8')
