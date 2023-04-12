@@ -9,6 +9,15 @@ from io import BytesIO
 st.set_page_config(page_title="Audit Tool", page_icon = ":toolbox:", layout="wide")
 #Load Asset
 #df = pd.read_excel("data.xlsx")
+def download_excel(df):
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    writer.save()
+    excel_data = output.getvalue()
+    b64 = base64.b64encode(excel_data).decode()
+    href = f'<a href="data:application/octet-stream;base64,{b64}" download="workpaper.xlsx">Download Excel File</a>'
+    return href
 def graph(dataframe):
     ng_conversion = 0.0551
     list = []
@@ -81,14 +90,7 @@ with st.container():
                 if average[i] > materiality:
                     st.write(f'{df1["Month"][i]} is over the materiality limit')
         if st.button("Populate Workpapers") and uploaded_file is not None:
-            writer = pd.ExcelWriter('workpaper.xlsx', engine='xlsxwriter')
-            df1.to_excel(writer,index=False, sheet_name='Sheet1')
-            writer.save()
-            with open('workpaper.xlsx', 'rb') as f:
-                data = f.read()
-                b64 = base64.b64encode(data).decode('UTF-8')
-                href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="workpaper.xlsx">Download Excel File</a>'
-                st.markdown(href, unsafe_allow_html=True)
+            st.markdown(download_excel(df1), unsafe_allow_html=True)
 
     with left_body:
         st.subheader("CO2 Emissions")
