@@ -83,6 +83,7 @@ with st.container():
         if st.button("Populate Workpapers") and uploaded_file is not None:
             writer = pd.ExcelWriter('workpaper.xlsx', engine='xlsxwriter')
             df1.to_excel(writer,index=False, sheet_name='Sheet1')
+            writer.save()
             with open('workpaper.xlsx', 'rb') as f:
                 data = f.read()
                 b64 = base64.b64encode(data).decode('UTF-8')
