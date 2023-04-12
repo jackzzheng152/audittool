@@ -13,7 +13,7 @@ def download_excel(df):
     output = BytesIO()
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
     df.to_excel(writer, index=False, sheet_name='Sheet1')
-    writer.save()
+    writer.close()
     excel_data = output.getvalue()
     b64 = base64.b64encode(excel_data).decode()
     href = f'<a href="data:application/octet-stream;base64,{b64}" download="workpaper.xlsx">Download Excel File</a>'
