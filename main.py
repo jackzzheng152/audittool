@@ -1,13 +1,11 @@
-import requests
-import json
+
 import streamlit as st
-from PIL import Image
+
 import pandas as pd
-import numpy as np
-import openai
-import secrets
+
+
 import statsmodels.api as sm
-from io import BytesIO
+
 import base64
 #from streamlit_chat import message
 
