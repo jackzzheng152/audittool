@@ -12,7 +12,6 @@ st.set_page_config(page_title="Audit Tool", page_icon = ":toolbox:", layout="wid
 def download_excel(df):
     output = BytesIO()
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.loc[3, 'H'] = "Check if emission exceeds materiality threshold"
     df.to_excel(writer, index=False, sheet_name='Sheet1')
     writer.close()
     excel_data = output.getvalue()
