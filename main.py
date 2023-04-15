@@ -8,7 +8,12 @@ from io import BytesIO
 
 st.set_page_config(page_title="Audit Tool", page_icon = ":toolbox:", layout="wide")
 #Load Asset
-#df = pd.read_excel("data.xlsx")
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+local_css("style/style.css")
 def download_excel(df):
     output = BytesIO()
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
