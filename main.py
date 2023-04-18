@@ -90,7 +90,8 @@ with st.container():
                 if average[i] > materiality:
                     st.write(f'{df1["Month"][i]} is over the materiality limit')
         button_style = "background-color: #86BC25;"
-        if st.button("Populate Workpapers",style=button_style) and uploaded_file is not None:
+        button_clicked = st.button("Click me!", style=button_style)
+        if st.button("Populate Workpapers") and uploaded_file is not None:
             st.markdown(download_excel(df1), unsafe_allow_html=True)
         
     with left_body:
