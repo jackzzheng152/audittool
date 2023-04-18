@@ -103,11 +103,11 @@ with st.container():
     m = st.markdown("""
 <style>
 div.stButton > button:first-child {
-    background-color: #0099ff;
+    background-color: #86BC25;
     color:#ffffff;
 }
 div.stButton > button:hover {
-    background-color: #00ff00;
+    background-color: #86BC25;
     color:#ff0000;
     }
 </style>""", unsafe_allow_html=True)
