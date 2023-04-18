@@ -100,6 +100,16 @@ with st.container():
             st.line_chart(df1,x="Month", y=["Conversion","Regression", "CO2 Emissions (metric tons)"],height=500)
             st.dataframe(df1, width=1400)
 
-
+    m = st.markdown("""
+<style>
+div.stButton > button:first-child {
+    background-color: #0099ff;
+    color:#ffffff;
+}
+div.stButton > button:hover {
+    background-color: #00ff00;
+    color:#ff0000;
+    }
+</style>""", unsafe_allow_html=True)
 
 
